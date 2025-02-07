@@ -61,7 +61,7 @@ button1.addEventListener("click", () => {
 button2.addEventListener("click", () => {
     button2.textContent = "Aw :<";  // Change text to "Aw :<" on second button
     setTimeout(() => {
-        button2.textContent = "No 💔";  // Reset after a short time
+        button2.textContent = "💔";  // Reset after a short time
     }, 2000);
 });
 
