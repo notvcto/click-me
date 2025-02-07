@@ -52,33 +52,17 @@ const button1 = document.getElementById("valentinesButton1");
 const button2 = document.getElementById("valentinesButton2");
 
 button1.addEventListener("click", () => {
-  if (button1.textContent === "Click Me! ❤") {
-    button1.textContent = "loading...";
-    fetch('send_mail.php')
-      .then(response => {
-        if (response.ok) {
-          button1.textContent = "Check Your Email 🙃";
-        } else {
-          console.error('Failed to send email');
-          button1.textContent = "Error 😞";
-        }
-      })
-      .catch(error => {
-        // Handle network errors or other issues
-        console.error('Error:', error);
-        button1.textContent = "Error 😞";
-      });
-  }
+    button1.textContent = "Check DMs! 💌";  // Change text to "Check DMs" on first button
+    setTimeout(() => {
+        button1.textContent = "Click Me! ❤";  // Reset after a short time
+    }, 2000);
 });
 
 button2.addEventListener("click", () => {
-  if (button2.textContent === "Send Love! 💌") {
-    button2.textContent = "Sending...";
-    // You can customize this action for the second button here
+    button2.textContent = "Aw :<";  // Change text to "Aw :<" on second button
     setTimeout(() => {
-      button2.textContent = "Love Sent! 💖";
-    }, 2000); // Simulating a 2-second action
-  }
+        button2.textContent = "Click Me! ❤";  // Reset after a short time
+    }, 2000);
 });
 
 function drawTextWithLineBreaks(lines, x, y, fontSize, lineHeight) {
