@@ -3,6 +3,10 @@ html, body {
     padding: 0 !important;
     overflow: hidden;
     cursor: url('./images/pointer.png'), auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 canvas {
@@ -11,7 +15,7 @@ canvas {
     background: #111;
 }
 
-#valentinesButton {
+button {
     display: none;
     position: absolute;
     background-color: #4B0082;
@@ -22,13 +26,22 @@ canvas {
     font-size: 16px;
     font-family: "Comic Sans MS", cursive, sans-serif;
     border-radius: 10px;
-    top: calc(50% + 150px); /* Adjust based on canvas height and text position */
-    left: 50%;
-    transform: translateX(-50%);
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-  }
+}
 
-  #valentinesButton:hover {
+button:hover {
     background-color: #5a007e;
     color: #eee;
+}
+
+#valentinesButton1, #valentinesButton2 {
+    top: calc(50% + 150px);  /* Both buttons will be aligned with the same vertical positioning */
+}
+
+#valentinesButton1 {
+    left: calc(50% - 90px);  /* Adjust first button a little left */
+}
+
+#valentinesButton2 {
+    left: calc(50% + 30px);  /* Adjust second button a little right */
 }

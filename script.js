@@ -7,6 +7,7 @@ var stars = 500;
 var colorrange = [250, 270, 290];
 var starArray = [];
 
+// Function to get random values
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -32,7 +33,6 @@ var baseFrame = context.getImageData(0, 0, window.innerWidth, window.innerHeight
 function drawStars() {
     for (var i = 0; i < stars; i++) {
         var star = starArray[i];
-
         context.beginPath();
         context.arc(star.x, star.y, star.radius, 0, 360);
         context.fillStyle = "hsla(" + star.hue + ", " + star.sat + "%, 88%, " + star.opacity + ")";
@@ -48,25 +48,36 @@ function updateStars() {
     }
 }
 
-const button = document.getElementById("valentinesButton");
+const button1 = document.getElementById("valentinesButton1");
+const button2 = document.getElementById("valentinesButton2");
 
-button.addEventListener("click", () => {
-  if (button.textContent === "Click Me! ❤") {
-    button.textContent = "loading...";
+button1.addEventListener("click", () => {
+  if (button1.textContent === "Click Me! ❤") {
+    button1.textContent = "loading...";
     fetch('send_mail.php')
       .then(response => {
         if (response.ok) {
-          button.textContent = "Check Your Email 🙃";
+          button1.textContent = "Check Your Email 🙃";
         } else {
           console.error('Failed to send email');
-          button.textContent = "Error 😞";
+          button1.textContent = "Error 😞";
         }
       })
       .catch(error => {
         // Handle network errors or other issues
         console.error('Error:', error);
-        button.textContent = "Error 😞";
+        button1.textContent = "Error 😞";
       });
+  }
+});
+
+button2.addEventListener("click", () => {
+  if (button2.textContent === "Send Love! 💌") {
+    button2.textContent = "Sending...";
+    // You can customize this action for the second button here
+    setTimeout(() => {
+      button2.textContent = "Love Sent! 💖";
+    }, 2000); // Simulating a 2-second action
   }
 });
 
@@ -101,7 +112,6 @@ function drawText() {
         opacity = opacity - 0.01;
     }
 
-    //needs this if statement to reset the opacity before next statement on canvas
     if(frameNumber == 500){
         opacity = 0;
     }
@@ -215,14 +225,15 @@ function drawText() {
         context.fillText("Happy Valentine's Day <3", canvas.width/2, (canvas.height/2 + 120));
         thirdOpacity = thirdOpacity + 0.01;
 
-        button.style.display = "block";
+        button1.style.display = "block";
+        button2.style.display = "block";
     }   
 
-     // Reset the shadow effect after drawing the text
-     context.shadowColor = "transparent";
-     context.shadowBlur = 0;
-     context.shadowOffsetX = 0;
-     context.shadowOffsetY = 0;
+    // Reset the shadow effect after drawing the text
+    context.shadowColor = "transparent";
+    context.shadowBlur = 0;
+    context.shadowOffsetX = 0;
+    context.shadowOffsetY = 0;
 }
 
 function draw() {
