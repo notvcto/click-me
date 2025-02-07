@@ -52,7 +52,7 @@ const button1 = document.getElementById("valentinesButton1");
 const button2 = document.getElementById("valentinesButton2");
 
 button1.addEventListener("click", () => {
-    button1.textContent = "Check DMs! 💌";  // Change text to "Check DMs" on first button
+    button1.textContent = "DM me :3";  // Change text to "Check DMs" on first button
     setTimeout(() => {
         button1.textContent = "Yes ❤";  // Reset after a short time
     }, 2000);
