@@ -7,14 +7,12 @@ html, body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    position: relative; /* Added this */
 }
 
 canvas {
     width: 100%;
     height: auto;
     background: #111;
-    position: absolute; /* Ensure canvas is behind the buttons */
 }
 
 button {
@@ -37,16 +35,13 @@ button:hover {
 }
 
 #valentinesButton1, #valentinesButton2 {
-    top: calc(50% + 150px); /* Both buttons will be aligned with the same vertical positioning */
-    position: absolute;
+    top: calc(50% + 150px);  /* Both buttons will be aligned with the same vertical positioning */
 }
 
 #valentinesButton1 {
-    left: 50%; /* Center the first button */
-    transform: translateX(-120px); /* Adjust the position to the left */
+    left: calc(50% - 90px);  /* Adjust first button a little left */
 }
 
 #valentinesButton2 {
-    left: 50%; /* Center the second button */
-    transform: translateX(60px); /* Adjust the position to the right */
+    left: calc(50% + 30px);  /* Adjust second button a little right */
 }
