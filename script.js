@@ -54,14 +54,14 @@ const button2 = document.getElementById("valentinesButton2");
 button1.addEventListener("click", () => {
     button1.textContent = "Check DMs! 💌";  // Change text to "Check DMs" on first button
     setTimeout(() => {
-        button1.textContent = "Click Me! ❤";  // Reset after a short time
+        button1.textContent = "Yes ❤";  // Reset after a short time
     }, 2000);
 });
 
 button2.addEventListener("click", () => {
     button2.textContent = "Aw :<";  // Change text to "Aw :<" on second button
     setTimeout(() => {
-        button2.textContent = "Click Me! ❤";  // Reset after a short time
+        button2.textContent = "No 💔";  // Reset after a short time
     }, 2000);
 });
 
