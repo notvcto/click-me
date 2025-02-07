@@ -211,7 +211,7 @@ function drawText() {
 
         button1.style.display = "block";
         button2.style.display = "block";
-    } 
+    }   
 
     // Reset the shadow effect after drawing the text
     context.shadowColor = "transparent";
