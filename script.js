@@ -205,51 +205,13 @@ function drawText() {
     }
 
     if(frameNumber >= 3000 && frameNumber < 99999){
-        context.fillStyle = `rgba(75, 0, 130, ${secondOpacity})`;
-    
-        if (window.innerWidth < 600) {
-            drawTextWithLineBreaks([
-                "Every moment with you feels like a dream", 
-                "and I'm forever grateful for it."
-            ], canvas.width / 2, (canvas.height/2 + 60), fontSize, lineHeight);
-        } else {
-            context.fillText(
-                "Every moment with you feels like a dream, and I'm forever grateful for it.", 
-                canvas.width/2, (canvas.height/2 + 50)
-            );
-        }
-    
-        secondOpacity = secondOpacity + 0.01;
-    }
-    
-    if(frameNumber >= 3250 && frameNumber < 99999){
-        context.fillStyle = `rgba(75, 0, 130, ${secondOpacity})`;
-    
-        if (window.innerWidth < 600) {
-            drawTextWithLineBreaks([
-                "I'm so glad I met you.",
-                "I'm glad the stars alligned."
-            ], canvas.width / 2, (canvas.height/2 + 60), fontSize, lineHeight);
-        } else {
-            context.fillText(
-                "I'm so glad I met you.", 
-                canvas.width/2, (canvas.height/2 + 50)
-            );
-        }
-    
-        secondOpacity = secondOpacity + 0.01;
-    }
-    
-    
-
-    if(frameNumber >= 3500 && frameNumber < 99999){
         context.fillStyle = `rgba(75, 0, 130, ${thirdOpacity})`;
         context.fillText("Happy Valentine's Day <3", canvas.width/2, (canvas.height/2 + 120));
         thirdOpacity = thirdOpacity + 0.01;
 
         button1.style.display = "block";
         button2.style.display = "block";
-    }   
+    } 
 
     // Reset the shadow effect after drawing the text
     context.shadowColor = "transparent";
