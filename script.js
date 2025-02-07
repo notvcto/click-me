@@ -109,10 +109,25 @@ function drawText() {
         context.fillStyle = `rgba(75, 0, 130, ${thirdOpacity})`;
         context.fillText("Happy Valentine's Day <3", canvas.width / 2, canvas.height / 2 + 50);
         thirdOpacity += 0.01;
+
+        // Fade-in effect for buttons
+        if (button1.style.opacity < 1) {
+            button1.style.opacity = (parseFloat(button1.style.opacity) + 0.05).toString();
+        }
+        if (button2.style.opacity < 1) {
+            button2.style.opacity = (parseFloat(button2.style.opacity) + 0.05).toString();
+        }
+
         button1.style.display = "block";
         button2.style.display = "block";
     }
 }
+
+// Initially set buttons to be invisible
+button1.style.opacity = 0;
+button2.style.opacity = 0;
+button1.style.transition = "opacity 1s ease";
+button2.style.transition = "opacity 1s ease";
 
 function draw() {
     context.putImageData(baseFrame, 0, 0);
