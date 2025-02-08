@@ -7,20 +7,29 @@ var stars = 500;
 var colorrange = [250, 270, 290];
 var starArray = [];
 
+// Adjustable FPS cap
+const targetFPS = 150;
+const frameTime = 1000 / targetFPS; // Time per frame in milliseconds
+let lastTime = performance.now();
+let accumulatedTime = 0;
+
 // Function to get random values
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // Initialize stars with random opacity values
-for (var i = 0; i < stars; i++) {
-    var x = Math.random() * canvas.offsetWidth;
-    var y = Math.random() * canvas.offsetHeight;
-    var radius = Math.random() * 1.2;
-    var hue = colorrange[getRandom(0, colorrange.length - 1)];
-    var sat = getRandom(50, 100);
-    var opacity = Math.random();
-    starArray.push({ x, y, radius, hue, sat, opacity });
+function generateStars() {
+    starArray = []; // Clear previous stars
+    for (var i = 0; i < stars; i++) {
+        var x = Math.random() * canvas.offsetWidth;
+        var y = Math.random() * canvas.offsetHeight;
+        var radius = Math.random() * 1.2;
+        var hue = colorrange[getRandom(0, colorrange.length - 1)];
+        var sat = getRandom(50, 100);
+        var opacity = Math.random();
+        starArray.push({ x, y, radius, hue, sat, opacity });
+    }
 }
 
 var frameNumber = 0;
@@ -87,14 +96,14 @@ function drawText() {
     ];
 
     if (!stopMessages) {
-        let index = Math.floor(frameNumber / 250) % messages.length; // Slowed down from 250 to 400
-        let fadeIn = frameNumber % 250 < 100;
-        let fadeOut = frameNumber % 250 >= 75;
+        let index = Math.floor(frameNumber / 700) % messages.length;
+        let fadeIn = frameNumber % 700 < 350;
+        let fadeOut = frameNumber % 700 >= 350;
 
         context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
         context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
 
-        if (fadeIn) opacity += 0.005; // Adjusted for smoother transition
+        if (fadeIn) opacity += 0.005;
         if (fadeOut) opacity -= 0.005;
     }
 
@@ -110,7 +119,6 @@ function drawText() {
         context.fillText("Happy Valentine's Day <3", canvas.width / 2, canvas.height / 2 + 50);
         thirdOpacity += 0.01;
 
-        // Fade-in effect for buttons
         if (button1.style.opacity < 1) {
             button1.style.opacity = (parseFloat(button1.style.opacity) + 0.05).toString();
         }
@@ -129,16 +137,39 @@ button2.style.opacity = 0;
 button1.style.transition = "opacity 1s ease";
 button2.style.transition = "opacity 1s ease";
 
-function draw() {
-    context.putImageData(baseFrame, 0, 0);
-    drawStars();
-    updateStars();
-    drawText();
-
-    if (frameNumber < 99999) {
-        frameNumber++;
+// Function to detect fullscreen change
+function handleFullscreenChange() {
+    if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+        console.log('Fullscreen mode detected.');
+        generateStars();  
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
-    window.requestAnimationFrame(draw);
+}
+
+// Event listener for fullscreen change
+document.addEventListener("fullscreenchange", handleFullscreenChange);
+document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+document.addEventListener("msfullscreenchange", handleFullscreenChange);
+
+// Function to redraw canvas on every frame with FPS cap
+function draw(timestamp) {
+    const deltaTime = timestamp - lastTime;
+    lastTime = timestamp;
+    accumulatedTime += deltaTime;
+
+    while (accumulatedTime >= frameTime) {
+        context.putImageData(baseFrame, 0, 0);
+        drawStars();
+        updateStars();
+        drawText();
+
+        frameNumber++;
+        accumulatedTime -= frameTime;
+    }
+
+    requestAnimationFrame(draw);
 }
 
 window.addEventListener("resize", function () {
@@ -147,4 +178,8 @@ window.addEventListener("resize", function () {
     baseFrame = context.getImageData(0, 0, window.innerWidth, window.innerHeight);
 });
 
-window.requestAnimationFrame(draw);
+// Generate initial stars
+generateStars();
+
+// Start animation loop
+requestAnimationFrame(draw);
