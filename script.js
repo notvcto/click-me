@@ -3,8 +3,8 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var context = canvas.getContext("2d");
-var stars = 500;
-var colorrange = [250, 270, 290];
+var stars = 700;
+var colorrange = [240, 260, 280];
 var starArray = [];
 
 // Adjustable FPS cap
