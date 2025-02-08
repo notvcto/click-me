@@ -105,7 +105,7 @@ function drawText() {
     var fontSize = Math.min(30, window.innerWidth / 24);
     context.font = fontSize + "px Comic Sans MS";
     context.textAlign = "center";
-    context.shadowColor = "rgb(120, 0, 206)";
+    context.shadowColor = "rgb(108, 0, 185)";
     context.shadowBlur = 8;
 
     let messages = [
