@@ -13,20 +13,15 @@ function getRandom(min, max) {
 }
 
 // Initialize stars with random opacity values
-function generateStars(colorrange) {
-    starArray = [];
-    for (var i = 0; i < stars; i++) {
-        var x = Math.random() * canvas.offsetWidth;
-        var y = Math.random() * canvas.offsetHeight;
-        var radius = Math.random() * 1.2;
-        var hue = colorrange[getRandom(0, colorrange.length - 1)];
-        var sat = getRandom(50, 100);
-        var opacity = Math.random();
-        starArray.push({ x, y, radius, hue, sat, opacity });
-    }
+for (var i = 0; i < stars; i++) {
+    var x = Math.random() * canvas.offsetWidth;
+    var y = Math.random() * canvas.offsetHeight;
+    var radius = Math.random() * 1.2;
+    var hue = colorrange[getRandom(0, colorrange.length - 1)];
+    var sat = getRandom(50, 100);
+    var opacity = Math.random();
+    starArray.push({ x, y, radius, hue, sat, opacity });
 }
-
-generateStars(colorrange);
 
 var frameNumber = 0;
 var opacity = 0;
@@ -62,9 +57,6 @@ button1.addEventListener("click", () => {
     setTimeout(() => {
         button1.textContent = "Yes ❤";
     }, 2000);
-    
-    // Change stars to pinkish color
-    generateStars([320, 330, 340]);
 });
 
 button2.addEventListener("click", () => {
@@ -94,25 +86,48 @@ function drawText() {
         "And I will always be here, loving you."
     ];
 
-    let messageDuration = Math.max(200, frameNumber / 4);
-    let fadeDuration = Math.max(100, messageDuration / 2);
-    let index = Math.floor((frameNumber % (messageDuration * 2)) / messageDuration) % messages.length;
-    let fadeOut = frameNumber % (messageDuration * 2) >= messageDuration;
-    let fadeIn = !fadeOut;
-
     if (!stopMessages) {
-        if (fadeIn) {
-            opacity = Math.min(opacity + 0.02, 1);
-        } else {
-            opacity = Math.max(opacity - 0.02, 0);
+        let index = Math.floor(frameNumber / 700) % messages.length; // Slowed down from 250 to 400
+        let fadeIn = frameNumber % 700 < 350;
+        let fadeOut = frameNumber % 700 >= 350;
+
+        context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
+        context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
+
+        if (fadeIn) opacity += 0.005; // Adjusted for smoother transition
+        if (fadeOut) opacity -= 0.005;
+    }
+
+    if (frameNumber >= 7000) {
+        stopMessages = true;
+        context.fillStyle = `rgba(75, 0, 130, ${secondOpacity})`;
+        context.fillText("I love you so much {name}, more than all the time and space in the universe can contain", canvas.width / 2, canvas.height / 2);
+        secondOpacity += 0.01;
+    }
+
+    if (frameNumber >= 7250) {
+        context.fillStyle = `rgba(75, 0, 130, ${thirdOpacity})`;
+        context.fillText("Happy Valentine's Day <3", canvas.width / 2, canvas.height / 2 + 50);
+        thirdOpacity += 0.01;
+
+        // Fade-in effect for buttons
+        if (button1.style.opacity < 1) {
+            button1.style.opacity = (parseFloat(button1.style.opacity) + 0.05).toString();
+        }
+        if (button2.style.opacity < 1) {
+            button2.style.opacity = (parseFloat(button2.style.opacity) + 0.05).toString();
         }
 
-        if (opacity > 0) {
-            context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
-            context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
-        }
+        button1.style.display = "block";
+        button2.style.display = "block";
     }
 }
+
+// Initially set buttons to be invisible
+button1.style.opacity = 0;
+button2.style.opacity = 0;
+button1.style.transition = "opacity 1s ease";
+button2.style.transition = "opacity 1s ease";
 
 function draw() {
     context.putImageData(baseFrame, 0, 0);
