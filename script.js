@@ -70,9 +70,9 @@ function drawText() {
     ];
 
     if (!stopMessages) {
-        let index = Math.floor(frameNumber / 400) % messages.length; // Faster transition
-        let fadeIn = frameNumber % 400 < 150;
-        let fadeOut = frameNumber % 400 >= 250;
+        let index = Math.floor(frameNumber / 300) % messages.length; // Faster transition
+        let fadeIn = frameNumber % 300 < 150;
+        let fadeOut = frameNumber % 300 >= 250;
 
         context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
         context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
