@@ -87,15 +87,15 @@ function drawText() {
     ];
 
     if (!stopMessages) {
-        let index = Math.floor(frameNumber / 400) % messages.length; // Slowed down from 250 to 400
-        let fadeIn = frameNumber % 700 < 350;
-        let fadeOut = frameNumber % 700 >= 350;
+        let index = Math.floor(frameNumber / 300) % messages.length; // Slowed down from 250 to 400
+        let fadeIn = frameNumber % 300 < 125;
+        let fadeOut = frameNumber % 300 >= 125;
 
         context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
         context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
 
         if (fadeIn) opacity += 0.005; // Adjusted for smoother transition
-        if (fadeOut) opacity -= 0.005;
+        if (fadeOut) opacity -= 0.0025;
     }
 
     if (frameNumber >= 7000) {
