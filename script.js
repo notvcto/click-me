@@ -135,14 +135,14 @@ function drawText() {
         if (fadeOut) opacity -= 0.005;
     }
 
-    if (frameNumber >= 8000) {
+    if (frameNumber >= 8500) {
         stopMessages = true;
         context.fillStyle = `rgba(75, 0, 130, ${secondOpacity})`;
         context.fillText("I love you so much {name}, more than all the time and space in the universe can contain", canvas.width / 2, canvas.height / 2);
         secondOpacity += 0.01;
     }
 
-    if (frameNumber >= 8250) {
+    if (frameNumber >= 8750) {
         context.fillStyle = `rgba(75, 0, 130, ${thirdOpacity})`;
         context.fillText("Happy Valentine's Day <3", canvas.width / 2, canvas.height / 2 + 50);
         thirdOpacity += 0.01;
