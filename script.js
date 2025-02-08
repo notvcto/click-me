@@ -96,17 +96,21 @@ function drawText() {
 
     let messageDuration = Math.max(200, frameNumber / 4);
     let fadeDuration = Math.max(100, messageDuration / 2);
+    let index = Math.floor((frameNumber % (messageDuration * 2)) / messageDuration) % messages.length;
+    let fadeOut = frameNumber % (messageDuration * 2) >= messageDuration;
+    let fadeIn = !fadeOut;
 
     if (!stopMessages) {
-        let index = Math.floor(frameNumber / messageDuration) % messages.length;
-        let fadeIn = frameNumber % messageDuration < fadeDuration;
-        let fadeOut = frameNumber % messageDuration >= messageDuration - fadeDuration;
+        if (fadeIn) {
+            opacity = Math.min(opacity + 0.02, 1);
+        } else {
+            opacity = Math.max(opacity - 0.02, 0);
+        }
 
-        context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
-        context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
-
-        if (fadeIn && opacity < 1) opacity += 0.02;
-        if (fadeOut && opacity > 0) opacity -= 0.02;
+        if (opacity > 0) {
+            context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
+            context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
+        }
     }
 }
 
