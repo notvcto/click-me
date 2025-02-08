@@ -27,6 +27,18 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
+window.addEventListener("blur", () => {
+    isTabActive = false;
+    cancelAnimationFrame(animationFrameId); // Stop animations
+});
+
+window.addEventListener("focus", () => {
+    isTabActive = true;
+    lastTime = performance.now(); // Reset time tracking
+    animationFrameId = requestAnimationFrame(draw); // Resume animation
+});
+
+
 // Function to get random values
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -171,7 +183,7 @@ document.addEventListener("msfullscreenchange", handleFullscreenChange);
 // Function to redraw canvas on every frame with FPS cap
 function draw(timestamp) {
     if (!isTabActive) return; // Skip drawing when the tab is inactive
-    
+
     const deltaTime = timestamp - lastTime;
     lastTime = timestamp;
     accumulatedTime += deltaTime;
