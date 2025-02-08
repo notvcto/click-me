@@ -94,8 +94,8 @@ function drawText() {
         context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
         context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
 
-        if (fadeIn) opacity += 0.005; // Adjusted for smoother transition
-        if (fadeOut) opacity -= 0.005;
+        if (fadeIn) opacity += 0.02; // Adjusted for smoother transition
+        if (fadeOut) opacity -= 0.02;
     }
 
     if (frameNumber >= 7000) {
