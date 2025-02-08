@@ -70,28 +70,28 @@ function drawText() {
     ];
 
     if (!stopMessages) {
-        let index = Math.floor(frameNumber / 400) % messages.length; // Faster transitions
-        let fadeIn = frameNumber % 400 < 200;
-        let fadeOut = frameNumber % 400 >= 200;
+        let index = Math.floor(frameNumber / 400) % messages.length; // Faster transition
+        let fadeIn = frameNumber % 400 < 150;
+        let fadeOut = frameNumber % 400 >= 250;
 
         context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
         context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
 
         if (fadeIn) opacity += 0.02; // Faster fade-in
-        if (fadeOut) opacity -= 0.02; // Faster fade-out
+        if (fadeOut) opacity -= 0.02;
     }
 
-    if (frameNumber >= 4000) { // Adjusted timing
+    if (frameNumber >= 4000) {
         stopMessages = true;
         context.fillStyle = `rgba(75, 0, 130, ${secondOpacity})`;
         context.fillText("I love you so much {name}, more than all the time and space in the universe can contain", canvas.width / 2, canvas.height / 2);
-        secondOpacity += 0.03; // Faster fade-in
+        secondOpacity += 0.02;
     }
 
-    if (frameNumber >= 4200) {
+    if (frameNumber >= 4250) {
         context.fillStyle = `rgba(75, 0, 130, ${thirdOpacity})`;
         context.fillText("Happy Valentine's Day <3", canvas.width / 2, canvas.height / 2 + 50);
-        thirdOpacity += 0.03; // Faster fade-in
+        thirdOpacity += 0.02;
     }
 }
 
