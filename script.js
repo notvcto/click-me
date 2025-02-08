@@ -87,7 +87,7 @@ function drawText() {
     ];
 
     if (!stopMessages) {
-        let index = Math.floor(frameNumber / 300) % messages.length; // Slowed down from 250 to 400
+        let index = Math.floor(frameNumber / 700) % messages.length;
         let fadeIn = frameNumber % 700 < 350;
         let fadeOut = frameNumber % 700 >= 350;
 
