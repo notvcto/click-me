@@ -118,7 +118,9 @@ function drawText() {
         "No matter the distance, no matter the time,",
         "My love for you remains unshaken, unwavering.",
         "You are the brightest star in my sky,",
-        "And I will always be here, loving you."
+        "And I will always be here, loving you.",
+        "I'm so glad that I met you.",
+        "I'm so glad the stars alligned."
     ];
 
     if (!stopMessages) {
@@ -133,14 +135,14 @@ function drawText() {
         if (fadeOut) opacity -= 0.005;
     }
 
-    if (frameNumber >= 7000) {
+    if (frameNumber >= 8000) {
         stopMessages = true;
         context.fillStyle = `rgba(75, 0, 130, ${secondOpacity})`;
         context.fillText("I love you so much {name}, more than all the time and space in the universe can contain", canvas.width / 2, canvas.height / 2);
         secondOpacity += 0.01;
     }
 
-    if (frameNumber >= 7250) {
+    if (frameNumber >= 8250) {
         context.fillStyle = `rgba(75, 0, 130, ${thirdOpacity})`;
         context.fillText("Happy Valentine's Day <3", canvas.width / 2, canvas.height / 2 + 50);
         thirdOpacity += 0.01;
