@@ -13,6 +13,20 @@ const frameTime = 1000 / targetFPS; // Time per frame in milliseconds
 let lastTime = performance.now();
 let accumulatedTime = 0;
 
+var isTabActive = true;
+var animationFrameId = null;
+
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden') {
+        isTabActive = false;
+        cancelAnimationFrame(animationFrameId); // Completely stop the animation loop
+    } else {
+        isTabActive = true;
+        lastTime = performance.now(); // Reset time tracking to avoid jumps
+        animationFrameId = requestAnimationFrame(draw); // Resume animation
+    }
+});
+
 // Function to get random values
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -153,8 +167,11 @@ document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
 document.addEventListener("mozfullscreenchange", handleFullscreenChange);
 document.addEventListener("msfullscreenchange", handleFullscreenChange);
 
+
 // Function to redraw canvas on every frame with FPS cap
 function draw(timestamp) {
+    if (!isTabActive) return; // Skip drawing when the tab is inactive
+    
     const deltaTime = timestamp - lastTime;
     lastTime = timestamp;
     accumulatedTime += deltaTime;
