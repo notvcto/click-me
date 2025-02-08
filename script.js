@@ -13,15 +13,20 @@ function getRandom(min, max) {
 }
 
 // Initialize stars with random opacity values
-for (var i = 0; i < stars; i++) {
-    var x = Math.random() * canvas.offsetWidth;
-    var y = Math.random() * canvas.offsetHeight;
-    var radius = Math.random() * 1.2;
-    var hue = colorrange[getRandom(0, colorrange.length - 1)];
-    var sat = getRandom(50, 100);
-    var opacity = Math.random();
-    starArray.push({ x, y, radius, hue, sat, opacity });
+function generateStars(colorrange) {
+    starArray = [];
+    for (var i = 0; i < stars; i++) {
+        var x = Math.random() * canvas.offsetWidth;
+        var y = Math.random() * canvas.offsetHeight;
+        var radius = Math.random() * 1.2;
+        var hue = colorrange[getRandom(0, colorrange.length - 1)];
+        var sat = getRandom(50, 100);
+        var opacity = Math.random();
+        starArray.push({ x, y, radius, hue, sat, opacity });
+    }
 }
+
+generateStars(colorrange);
 
 var frameNumber = 0;
 var opacity = 0;
@@ -49,6 +54,26 @@ function updateStars() {
     }
 }
 
+const button1 = document.getElementById("valentinesButton1");
+const button2 = document.getElementById("valentinesButton2");
+
+button1.addEventListener("click", () => {
+    button1.textContent = "DM me :3";
+    setTimeout(() => {
+        button1.textContent = "Yes ❤";
+    }, 2000);
+    
+    // Change stars to pinkish color
+    generateStars([320, 330, 340]);
+});
+
+button2.addEventListener("click", () => {
+    button2.textContent = "Aw :<";
+    setTimeout(() => {
+        button2.textContent = "💔";
+    }, 2000);
+});
+
 function drawText() {
     var fontSize = Math.min(30, window.innerWidth / 24);
     context.font = fontSize + "px Comic Sans MS";
@@ -69,29 +94,19 @@ function drawText() {
         "And I will always be here, loving you."
     ];
 
+    let messageDuration = Math.max(200, frameNumber / 4);
+    let fadeDuration = Math.max(100, messageDuration / 2);
+
     if (!stopMessages) {
-        let index = Math.floor(frameNumber / 200) % messages.length; // Faster transition
-        let fadeIn = frameNumber % 200 < 150;
-        let fadeOut = frameNumber % 200 >= 50;
+        let index = Math.floor(frameNumber / messageDuration) % messages.length;
+        let fadeIn = frameNumber % messageDuration < fadeDuration;
+        let fadeOut = frameNumber % messageDuration >= messageDuration - fadeDuration;
 
         context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
         context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
 
-        if (fadeIn) opacity += 0.02; // Faster fade-in
-        if (fadeOut) opacity -= 0.02;
-    }
-
-    if (frameNumber >= 4000) {
-        stopMessages = true;
-        context.fillStyle = `rgba(75, 0, 130, ${secondOpacity})`;
-        context.fillText("I love you so much {name}, more than all the time and space in the universe can contain", canvas.width / 2, canvas.height / 2);
-        secondOpacity += 0.02;
-    }
-
-    if (frameNumber >= 4250) {
-        context.fillStyle = `rgba(75, 0, 130, ${thirdOpacity})`;
-        context.fillText("Happy Valentine's Day <3", canvas.width / 2, canvas.height / 2 + 50);
-        thirdOpacity += 0.02;
+        if (fadeIn && opacity < 1) opacity += 0.02;
+        if (fadeOut && opacity > 0) opacity -= 0.02;
     }
 }
 
