@@ -49,23 +49,6 @@ function updateStars() {
     }
 }
 
-const button1 = document.getElementById("valentinesButton1");
-const button2 = document.getElementById("valentinesButton2");
-
-button1.addEventListener("click", () => {
-    button1.textContent = "DM me :3";
-    setTimeout(() => {
-        button1.textContent = "Yes ❤";
-    }, 2000);
-});
-
-button2.addEventListener("click", () => {
-    button2.textContent = "Aw :<";
-    setTimeout(() => {
-        button2.textContent = "💔";
-    }, 2000);
-});
-
 function drawText() {
     var fontSize = Math.min(30, window.innerWidth / 24);
     context.font = fontSize + "px Comic Sans MS";
@@ -87,47 +70,30 @@ function drawText() {
     ];
 
     if (!stopMessages) {
-        let index = Math.floor(frameNumber / 700) % messages.length; // Slowed down from 250 to 400
-        let fadeIn = frameNumber % 700 < 350;
-        let fadeOut = frameNumber % 700 >= 350;
+        let index = Math.floor(frameNumber / 400) % messages.length; // Faster transitions
+        let fadeIn = frameNumber % 400 < 200;
+        let fadeOut = frameNumber % 400 >= 200;
 
         context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
         context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
 
-        if (fadeIn) opacity += 0.005; // Adjusted for smoother transition
-        if (fadeOut) opacity -= 0.005;
+        if (fadeIn) opacity += 0.02; // Faster fade-in
+        if (fadeOut) opacity -= 0.02; // Faster fade-out
     }
 
-    if (frameNumber >= 7000) {
+    if (frameNumber >= 4000) { // Adjusted timing
         stopMessages = true;
         context.fillStyle = `rgba(75, 0, 130, ${secondOpacity})`;
         context.fillText("I love you so much {name}, more than all the time and space in the universe can contain", canvas.width / 2, canvas.height / 2);
-        secondOpacity += 0.01;
+        secondOpacity += 0.03; // Faster fade-in
     }
 
-    if (frameNumber >= 7250) {
+    if (frameNumber >= 4200) {
         context.fillStyle = `rgba(75, 0, 130, ${thirdOpacity})`;
         context.fillText("Happy Valentine's Day <3", canvas.width / 2, canvas.height / 2 + 50);
-        thirdOpacity += 0.01;
-
-        // Fade-in effect for buttons
-        if (button1.style.opacity < 1) {
-            button1.style.opacity = (parseFloat(button1.style.opacity) + 0.05).toString();
-        }
-        if (button2.style.opacity < 1) {
-            button2.style.opacity = (parseFloat(button2.style.opacity) + 0.05).toString();
-        }
-
-        button1.style.display = "block";
-        button2.style.display = "block";
+        thirdOpacity += 0.03; // Faster fade-in
     }
 }
-
-// Initially set buttons to be invisible
-button1.style.opacity = 0;
-button2.style.opacity = 0;
-button1.style.transition = "opacity 1s ease";
-button2.style.transition = "opacity 1s ease";
 
 function draw() {
     context.putImageData(baseFrame, 0, 0);
