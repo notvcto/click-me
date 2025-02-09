@@ -120,7 +120,7 @@ function drawText() {
         "You are the brightest star in my sky,",
         "And I will always be here, loving you.",
         "I'm so glad that I met you.",
-        "I'm so glad the stars alligned."
+        "I'm so glad that the stars alligned."
     ];
 
     if (!stopMessages) {
