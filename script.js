@@ -3,7 +3,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var context = canvas.getContext("2d");
-var stars = 700;
+var stars = 500;
 var colorrange = [240, 260, 280];
 var starArray = [];
 
