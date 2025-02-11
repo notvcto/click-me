@@ -8,7 +8,7 @@ var colorrange = [240, 260, 280];
 var starArray = [];
 
 // Adjustable FPS cap
-const targetFPS = 150;
+const targetFPS = 80;
 const frameTime = 1000 / targetFPS; // Time per frame in milliseconds
 let lastTime = performance.now();
 let accumulatedTime = 0;
@@ -124,9 +124,9 @@ function drawText() {
     ];
 
     if (!stopMessages) {
-        let index = Math.floor(frameNumber / 700) % messages.length;
-        let fadeIn = frameNumber % 700 < 350;
-        let fadeOut = frameNumber % 700 >= 350;
+        let index = Math.floor(frameNumber / 400) % messages.length;
+        let fadeIn = frameNumber % 400 < 200;
+        let fadeOut = frameNumber % 400 >= 200;
 
         context.fillStyle = `rgba(75, 0, 130, ${opacity})`;
         context.fillText(messages[index], canvas.width / 2, canvas.height / 2);
@@ -135,14 +135,14 @@ function drawText() {
         if (fadeOut) opacity -= 0.005;
     }
 
-    if (frameNumber >= 8400) {
+    if (frameNumber >= 4800) {
         stopMessages = true;
         context.fillStyle = `rgba(75, 0, 130, ${secondOpacity})`;
         context.fillText("I love you so much {name}, more than all the time and space in the universe can contain", canvas.width / 2, canvas.height / 2);
         secondOpacity += 0.01;
     }
 
-    if (frameNumber >= 8650) {
+    if (frameNumber >= 5050) {
         context.fillStyle = `rgba(75, 0, 130, ${thirdOpacity})`;
         context.fillText("Happy Valentine's Day <3", canvas.width / 2, canvas.height / 2 + 50);
         thirdOpacity += 0.01;
